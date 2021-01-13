@@ -69,4 +69,8 @@ public class Faculty extends  User {
                 + "\n\t(905)721-2000 x" + getExtension();
         return faculty;
     }
+
+    public String getTypeForDisplay() {
+        return "Faculty";
+    }
 }

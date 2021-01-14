@@ -36,7 +36,7 @@ public class User implements CollegeInterface {
     if (id < 100000000 || id > 999999999) {
       throw new InvalidIdException(id + " is invalid. Please try again.");
     } else {
-    this.id = id;
+      this.id = id;
     }
   }
 
@@ -44,8 +44,12 @@ public class User implements CollegeInterface {
     return password;
   }
 
-  public void setPassword(String password) {
-    this.password = password;
+  public void setPassword(String password) throws InvalidPasswordException {
+    if (password.length() < 8) {
+      throw new InvalidPasswordException("Password must not be less than 8 characters.");
+    } else if (password.length() > 30) {
+      throw new InvalidPasswordException("Password must not be greater than 30 characters.");
+    } else this.password = password;
   }
 
   public String getFirstName() {
@@ -104,7 +108,7 @@ public class User implements CollegeInterface {
     this.type = type;
   }
 
-  public User() throws InvalidIdException {
+  public User() throws InvalidIdException, InvalidPasswordException {
     this(
         DEFAULT_ID,
         DEFAULT_PASSWORD,
@@ -117,7 +121,7 @@ public class User implements CollegeInterface {
         DEFAULT_TYPE);
   }
 
-  public User (
+  public User(
       long id,
       String password,
       String firstName,
@@ -126,7 +130,8 @@ public class User implements CollegeInterface {
       Date lastAccess,
       Date enrolDate,
       boolean enabled,
-      char type) throws InvalidIdException {
+      char type)
+          throws InvalidIdException, InvalidPasswordException {
     setId(id);
     setPassword(password);
     setFirstName(firstName);

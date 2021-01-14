@@ -26,7 +26,7 @@ public class Student extends User {
       String programCode,
       String programDescription,
       int year,
-      Vector<Mark> marks) {
+      Vector<Mark> marks) throws InvalidIdException {
     super(id, password, firstName, lastName, emailAddress, lastAccess, enrolDate, enabled, type);
     setProgramCode(programCode);
     setProgramDescription(programDescription);
@@ -46,7 +46,7 @@ public class Student extends User {
       char type,
       String programCode,
       String programDescription,
-      int year) {
+      int year) throws InvalidIdException {
     this(
         id,
         password,
@@ -63,7 +63,7 @@ public class Student extends User {
         new Vector<Mark>(0));
   }
 
-  public Student() {
+  public Student() throws InvalidIdException {
     this(
         DEFAULT_ID,
         DEFAULT_PASSWORD,

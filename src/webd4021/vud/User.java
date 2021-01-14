@@ -56,16 +56,24 @@ public class User implements CollegeInterface {
     return firstName;
   }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
+  public void setFirstName(String firstName) throws InvalidNameException {
+    if (firstName.trim().length() == 0) {
+      throw new InvalidNameException("First name cannot be left empty. Please try again.");
+    } else if (isNumeric(firstName)) {
+      throw new InvalidNameException("First name cannot be a number");
+    } else this.firstName = firstName;
   }
 
   public String getLastName() {
     return lastName;
   }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
+  public void setLastName(String lastName) throws InvalidNameException {
+    if (lastName.trim().length() == 0) {
+      throw new InvalidNameException("Last name cannot be left empty. Please try again.");
+    } else if (isNumeric(lastName)) {
+      throw new InvalidNameException("Last name cannot be a number");
+    } else this.lastName = lastName;
   }
 
   public String getEmailAddress() {
@@ -108,7 +116,7 @@ public class User implements CollegeInterface {
     this.type = type;
   }
 
-  public User() throws InvalidIdException, InvalidPasswordException {
+  public User() throws InvalidIdException, InvalidPasswordException, InvalidNameException {
     this(
         DEFAULT_ID,
         DEFAULT_PASSWORD,
@@ -131,7 +139,7 @@ public class User implements CollegeInterface {
       Date enrolDate,
       boolean enabled,
       char type)
-          throws InvalidIdException, InvalidPasswordException {
+          throws InvalidIdException, InvalidPasswordException, InvalidNameException {
     setId(id);
     setPassword(password);
     setFirstName(firstName);
@@ -168,5 +176,14 @@ public class User implements CollegeInterface {
 
   public String getTypeForDisplay() {
     return "";
+  }
+
+  private Boolean isNumeric(String input) {
+    try {
+      double d = Double.parseDouble(input);
+    } catch (NumberFormatException nfe) {
+      return false;
+    }
+    return true;
   }
 }

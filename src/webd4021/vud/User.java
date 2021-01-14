@@ -32,8 +32,12 @@ public class User implements CollegeInterface {
     return id;
   }
 
-  public void setId(long id) {
+  public void setId(long id) throws InvalidIdException {
+    if (id < 100000000 || id > 999999999) {
+      throw new InvalidIdException(id + " is invalid. Please try again.");
+    } else {
     this.id = id;
+    }
   }
 
   public String getPassword() {
@@ -100,7 +104,7 @@ public class User implements CollegeInterface {
     this.type = type;
   }
 
-  public User() {
+  public User() throws InvalidIdException {
     this(
         DEFAULT_ID,
         DEFAULT_PASSWORD,
@@ -113,7 +117,7 @@ public class User implements CollegeInterface {
         DEFAULT_TYPE);
   }
 
-  public User(
+  public User (
       long id,
       String password,
       String firstName,
@@ -122,7 +126,7 @@ public class User implements CollegeInterface {
       Date lastAccess,
       Date enrolDate,
       boolean enabled,
-      char type) {
+      char type) throws InvalidIdException {
     setId(id);
     setPassword(password);
     setFirstName(firstName);

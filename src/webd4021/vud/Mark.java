@@ -7,7 +7,7 @@ public class Mark {
     public static final float MAXIMUM_GPA = 5.0f;
 
     // Placeholder for class attribute
-    public static final DecimalFormat GPA =;
+    public static final DecimalFormat GPA = new DecimalFormat("#.#");
 
     private String courseCode;
     private String courseName;
@@ -54,6 +54,6 @@ public class Mark {
     }
 
     public String toString() {
-        return String.format("%-12s1%-35s2%d1%d3", getCourseCode(), getCourseName(), getResult(), GPA(getGpaWeighting()));
+        return String.format("%-12s1%-35s2%d1%f3", getCourseCode(), getCourseName(), getResult(), getGpaWeighting());
     }
 }
